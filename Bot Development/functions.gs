@@ -1,26 +1,29 @@
-function logEndpoints() {
-  Logger.log(sendMsgEndpoint);
-  Logger.log(updatesEndpoint);
-}
+function get_shiva_images() {
+  var url1 = "https://tg-api-pyguru123.vercel.app/api/v1/sanatan/today";
+  var url2 = "https://tg-api-pyguru123.vercel.app/api/v1/sanatan/mahadev";
 
-function getCryptoPrice(coin) {
-  const url = "https://api.coincap.io/v2/assets";
-  var response = JSON.parse(UrlFetchApp.fetch(url));
-  var coins = response["data"]
-  for (var i=0; i<coins.length; i++) {
-    if (coins[i]["id"] == coin) {
-      var info = `${coins[i]["name"]} - ${coins[i]["symbol"]} - ${coins[i]["priceUsd"]}`;
-      return info;
+  var response = JSON.parse(UrlFetchApp.fetch(url1));
+  date = response.date;
+  sunrise = response.sunrise;
+  sunset = response.sunset;
+  importance = response.importance;
+
+  var string = `
+  ${date}
+
+  ${sunrise}
+  ${sunset}
+  ${importance}
+  `
+  if (string) {
+    var response2 = JSON.parse(UrlFetchApp.fetch(url2));
+    var url = response2.url;
+    if (url) {
+      return [string, url];
     }
   }
 }
 
-function getDogPic() {
-  const url = "https://dog.ceo/api/breeds/image/random";
-  var response = JSON.parse(UrlFetchApp.fetch(url));
-  return response["message"];
-}
-
 function test() {
-  getDogPic()
+  Logger.log(get_shiva_images())
 }
