@@ -4,6 +4,7 @@
 import rembg
 import os
 
+
 for index, file in enumerate(os.listdir()):  
 	if file.endswith('.jpg'):
 		name, ext = os.path.splitext(file)
